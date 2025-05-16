@@ -41,8 +41,7 @@ const Footer = () => {
           <div className="md:col-span-2">
             <Logo className="mb-4" />
             <p className="text-gray-600 dark:text-gray-300 mb-6 max-w-md">
-              Hiscope Enterprises delivers innovative solutions through software development, 
-              premium water products, and professional event management services.
+              Hiscope Enterprises delivers innovative solutions that empower businesses to thrive in the digital age. Our commitment to excellence and customer satisfaction drives us to provide top-notch services tailored to your needs.
             </p>
             <div className="flex space-x-4">
               {/* Social Media Icons */}
@@ -99,7 +98,7 @@ const Footer = () => {
           </p>
           <div className="mt-4 md:mt-0">
             <span className="text-sm text-gray-600 dark:text-gray-400">
-              Formerly known as Hiscope Cyberlink Technolies
+              Formerly known as Hiscope Cyberlink Technologies
             </span>
           </div>
         </div>

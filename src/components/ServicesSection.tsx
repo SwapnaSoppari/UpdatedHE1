@@ -1,55 +1,52 @@
 import { useEffect, useRef, useState } from "react";
+import { Link } from "react-router-dom";
 
 const services = [
-
   {
     title: "Healthcare AI Research",
     description: "Innovative AI solutions for the healthcare industry.",
     features: ["Diagnostics", "Predictive Analytics", "AI Assistants", "Medical Imaging"],
     image: "/images/healthcare.jpg",
+    slug: "healthcare-ai",
   },
-
   {
     title: "Software Development",
-    description: "Custom software solutions tailored to clients need business needs.",
+    description: "Custom software solutions tailored to business needs.",
     features: ["Web Applications", "Mobile Apps", "Enterprise Software", "API Integration"],
     image: "/images/software.jpg",
+    slug: "software-development",
   },
-
-  
-
   {
     title: "Automobile Services",
     description: "End-to-end automobile solutions for personal and commercial use.",
     features: ["Automobile Design", "EV Engine Development", "Customised Design", "Logistics"],
     image: "/images/auto.jpg",
+    slug: "automobile-services",
   },
-
   {
     title: "HIES (Hydration In Every Sip) By Hiscope Enterprises",
     description: "Premium water products with our own unique branding.",
     features: ["Natural Spring Water", "Premium Bottling", "Custom Labeling", "Wholesale Options"],
     image: "/images/water.jpg",
+    slug: "water-products",
   },
-
   {
-    title: "Real Estate",
-    description: "With highly qualified Civil engineers and experts wea re also steppin to real estate builing and constratcion Soon. Our thoughts aere to bring comprehensive real estate solutions for  build the futurist homes using the international methods and AI Inventory.",
-    features: ["Corporate Events", "Weddings", "Concerts", "Product Launches"],
+    title: "Construction and Development",
+    description: "Comprehensive real estate solutions with AI-enhanced designs.",
+    features: ["Home Elevation Designs", "Interior Designing", "Community Development", "Area Development"],
     image: "/images/realestate.jpg",
+    slug: "construction-development",
   },
-
   {
     title: "Event Management",
     description: "Professional event planning and execution services.",
     features: ["Corporate Events", "Weddings", "Concerts", "Product Launches"],
     image: "/images/event.jpg",
+    slug: "event-management",
   },
-
-  
 ];
 
-export default function ServicesSection() {
+const ServicesSection = () => {
   const containerRef = useRef<HTMLDivElement>(null);
   const [currentIndex, setCurrentIndex] = useState(0);
 
@@ -66,53 +63,64 @@ export default function ServicesSection() {
   useEffect(() => {
     const container = containerRef.current;
     if (container) {
-      container.scrollTo({
-        left: currentIndex * (container.scrollWidth / services.length),
-        behavior: "smooth",
-      });
+      const scrollAmount = container.offsetWidth * currentIndex;
+      container.scrollTo({ left: scrollAmount, behavior: "smooth" });
     }
   }, [currentIndex]);
 
   return (
-    <div className="w-full px-2">
-      <h2 className="text-3xl font-bold text-center mb-6">
-        What We Do at <span className="text-pink-500">Hiscope</span> <span className="text-orange-500">Enterprises</span>
-      </h2>
+    <section className="py-20 bg-gray-50 dark:bg-gray-800">
+      <div className="w-full px-4 max-w-[16 00px] mx-auto">
+        <h2 className="text-3xl font-bold text-center mb-10">
+          What We Do at{" "}
+          <span className="text-pink-600">Hiscope</span>{" "}
+          <span className="text-orange-500">Enterprises</span>
+        </h2>
 
-      <div
-        ref={containerRef}
-        className="flex overflow-x-auto no-scrollbar scroll-smooth"
-        style={{
-          scrollBehavior: "smooth",
-          scrollSnapType: "x mandatory",
-        }}
-      >
-        {services.map((service, index) => (
-          <div
-          key={index}
-          className="w-full sm:w-1/2 md:w-1/3 flex-shrink-0 px-2"
-          style={{ scrollSnapAlign: "start" }}
+        <div
+          ref={containerRef}
+          className="flex overflow-x-auto scrollbar-hide scroll-smooth"
+          style={{
+            scrollBehavior: "smooth",
+            scrollSnapType: "x mandatory",
+            msOverflowStyle: "none",
+            scrollbarWidth: "none",
+          }}
         >
-          
+          {services.map((service, index) => (
             <div
-              className="h-[350px] rounded-xl text-white flex flex-col justify-end bg-cover bg-center shadow-lg"
-              style={{
-                backgroundImage: `url(${service.image})`,
-              }}
+              key={index}
+              className="flex-shrink-0 w-[400px] h-[400px] sm:w-[400px] sm:h-[00px] lg:w-[400px] lg:h-[400px] px-4"
+              style={{ scrollSnapAlign: "start" }}
             >
-              <div className="bg-black bg-opacity-60 p-4 rounded-b-xl">
-                <h3 className="text-xl font-bold">{service.title}</h3>
-                <p className="text-sm mb-2">{service.description}</p>
-                <ul className="list-disc ml-5 text-xs">
-                  {service.features.map((feature, i) => (
-                    <li key={i}>{feature}</li>
-                  ))}
-                </ul>
-              </div>
+              <Link to={`/services/${service.slug}`} className="block h-full">
+                <div
+                  className="h-full rounded-2xl shadow-lg overflow-hidden bg-cover bg-center relative group transition-transform transform hover:scale-105"
+                  style={{
+                    backgroundImage: `url(${service.image})`,
+                  }}
+                >
+                  <div className="absolute inset-0 bg-black bg-opacity-50 p-4 flex flex-col justify-end">
+                    <h3 className="text-xl font-bold text-white mb-2">
+                      {service.title}
+                    </h3>
+                    <p className="text-sm text-gray-200 mb-2">
+                      {service.description}
+                    </p>
+                    <ul className="list-disc ml-5 text-xs text-gray-300">
+                      {service.features.map((feature, i) => (
+                        <li key={i}>{feature}</li>
+                      ))}
+                    </ul>
+                  </div>
+                </div>
+              </Link>
             </div>
-          </div>
-        ))}
+          ))}
+        </div>
       </div>
-    </div>
+    </section>
   );
-}
+};
+
+export default ServicesSection;
